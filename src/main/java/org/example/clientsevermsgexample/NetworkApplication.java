@@ -1,6 +1,5 @@
 package org.example.clientsevermsgexample;
 
-
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;

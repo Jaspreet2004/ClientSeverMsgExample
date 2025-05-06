@@ -1,7 +1,5 @@
 package org.example.clientsevermsgexample;
 
-
-
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -11,7 +9,6 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.stage.Stage;
-
 import java.io.DataInputStream;
 import java.io.DataOutputStream;
 import java.io.IOException;
@@ -42,8 +39,6 @@ public class MainController implements Initializable {
 
     @FXML
     private Button clearBtn;
-
-
 
     @FXML
     private TextArea resultArea;
@@ -82,10 +77,7 @@ public class MainController implements Initializable {
             resultArea.appendText(host + " not listening on port "
                     + port + "\n");
         }
-
-
     }
-
 
     @FXML
     void clearBtn(ActionEvent event) {
@@ -93,8 +85,6 @@ public class MainController implements Initializable {
         urlName.setText("");
 
     }
-
-
 
     @FXML
     void startServer(ActionEvent event) {
@@ -114,7 +104,6 @@ public class MainController implements Initializable {
 
         stage.setTitle("Server");
         stage.show();
-
 
         new Thread(this::runServer).start();
 
@@ -169,7 +158,6 @@ public class MainController implements Initializable {
         javafx.application.Platform.runLater(() -> lb12.setText(message + "\n"));
     }
 
-
     @FXML
     void startClient(ActionEvent event) {
         Stage stage = new Stage();
@@ -192,18 +180,13 @@ public class MainController implements Initializable {
         lb122.setLayoutY(200);
         root.getChildren().addAll(lb11, lb122, connectButton, msgText);
 
-
         Scene scene = new Scene(root, 600, 350);
         stage.setScene(scene);
         stage.setTitle("Client");
         stage.show();
-
-
     }
 
-
     private void connectToServer(ActionEvent event) {
-
 
         try {
             socket1 = new Socket("localhost", 6666);
@@ -221,13 +204,33 @@ public class MainController implements Initializable {
         } catch (Exception e) {
             updateTextClient("Error: " + e.getMessage() + "\n");
         }
-
-
     }
 
     private void updateTextClient(String message) {
         // Run on the UI thread
         javafx.application.Platform.runLater(() -> lb122.setText(message + "\n"));
+    }
+
+    @FXML
+    public void openClientChat(ActionEvent e) throws IOException {
+        Parent root = FXMLLoader.load(
+                getClass().getResource("ClientView.fxml")
+        );
+        Stage stage = new Stage();
+        stage.setTitle("Chat – Client");
+        stage.setScene(new Scene(root));
+        stage.show();
+    }
+
+    @FXML
+    public void openServerChat(ActionEvent e) throws IOException {
+        Parent root = FXMLLoader.load(
+                getClass().getResource("ServerView.fxml")
+        );
+        Stage stage = new Stage();
+        stage.setTitle("Chat – Server");
+        stage.setScene(new Scene(root));
+        stage.show();
     }
 
 }
